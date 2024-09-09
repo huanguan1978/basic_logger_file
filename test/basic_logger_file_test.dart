@@ -1,5 +1,5 @@
 import 'package:basic_logger_file/basic_logger_file.dart';
-import 'package:basic_logger/basic_logger.dart' hide FileOutputLogger;
+import 'package:basic_logger/basic_logger.dart';
 
 import 'package:test/test.dart';
 
