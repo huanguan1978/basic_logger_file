@@ -28,8 +28,7 @@ FileOutputLogger adds file logging to BasicLogger for Android, iOS, Linux, macOS
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Include short and useful examples for package users. Add longer examples to `/example` folder. 
 
 ```dart
   Logger.root.level = Level.ALL;
