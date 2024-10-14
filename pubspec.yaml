@@ -3,7 +3,7 @@ description: FileOutputLogger adds file logging to BasicLogger for Android, iOS,
 version: 0.0.2
 repository: https://github.com/huanguan1978/basic_logger_file.git
 
-publish_to: 'none'
+# publish_to: 'none'
 
 environment:
   sdk: ^3.4.3
