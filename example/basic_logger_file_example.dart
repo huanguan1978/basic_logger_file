@@ -4,15 +4,14 @@ import 'package:basic_logger/basic_logger.dart';
 import 'package:logging/logging.dart';
 
 void main() {
-  // hierarchicalLoggingEnabled = true;
+  hierarchicalLoggingEnabled = true;
   Logger.root.level = Level.ALL;
 
   final basicLogger = BasicLogger('main');
 
   // attach file log, bufferSize default 10
-  final fileOutputLogger = FileOutputLogger(parentName: basicLogger.name);
+  final fileOutputLogger = FileOutputLogger(basicLogger.name);
   final fileLogger = basicLogger.attachLogger(fileOutputLogger);
-  fileLogger.info('file output 1234'); // output to file
 
   /*
   /// detach instance, get orphan logger,
@@ -23,21 +22,18 @@ void main() {
   basicLogger.detachLogger(fileOutputLogger); // remove instance
   */
 
-  basicLogger.debug('debug a1'); // output to all attach instance
+  fileLogger.info('file output 1234'); // output to file
+
+  basicLogger.warning('warning a0'); // output to all attach instance
   basicLogger.info('info a1'); // output to all attach instance
 
   // output buffer to all attach instance, not include detach instance
-  basicLogger.output();
+  // basicLogger.output();
+  fileOutputLogger.output();
 
   // show all attach Logger instance name
   print(basicLogger.attachedNames);
 
   // show all attach OutputLogger instance name
   print(basicLogger.listenNames);
-
-  basicLogger.attachLogger(FileOutputLogger(
-    parentName: basicLogger.name,
-    dir: './logs/',
-    bufferSize: 100,
-  ));
 }

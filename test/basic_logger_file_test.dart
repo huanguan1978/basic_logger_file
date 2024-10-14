@@ -9,7 +9,7 @@ void main() {
     final basicLogger = BasicLogger('main');
 
     final namedFileLogger = '$named.basicFileLogger';
-    final fileOutputLogger = FileOutputLogger(parentName: basicLogger.name);
+    final fileOutputLogger = FileOutputLogger(basicLogger.name);
     // ignore: unused_local_variable
     final fileLogger = basicLogger.attachLogger(fileOutputLogger);
 

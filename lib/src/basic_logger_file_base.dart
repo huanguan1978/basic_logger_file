@@ -5,21 +5,23 @@ final class FileOutputLogger extends OutputLogger {
   final List<LogRecord> _buffer = [];
   int _bufferSize = 10;
   String _logfile = '';
+  late final String _logName;
 
-  FileOutputLogger({
-    required String parentName,
-    String name = 'basicFileLogger',
+  FileOutputLogger(
+    String parentName, {
+    String selfname = 'file',
+    bool selfonly = false,
     String dir = '.',
-    int bufferSize = 2,
-  }) : super(parentName, name) {
+    int bufferSize = 100,
+  }) : super(parentName, selfname: selfname, selfonly: selfonly) {
     _bufferSize = bufferSize;
     _logfile = path.join(
         dir, '${DateTime.now().toLocal().toString().substring(0, 10)}.log');
 
-    name = '$parentName.$name';
-    Logger(name).onRecord.listen((LogRecord record) {
-      _buffer.add(record);
-
+    _logName = '$parentName.$selfname';
+    Logger(parentName).onRecord.listen((LogRecord logRec) {
+      if (selfonly && logRec.loggerName != _logName) return;
+      _buffer.add(logRec);
       if (_buffer.length >= _bufferSize) {
         output();
       }
@@ -27,19 +29,26 @@ final class FileOutputLogger extends OutputLogger {
   }
 
   @override
-  void output() {
+  String Function(LogRecord logRec) get format =>
+      (logRec) => '${logRec.time} $logRec \n';
+
+  @override
+  String get name => _logName;
+
+  /// output LogRecord form buffer
+  @override
+  void output([LogRecord? record]) {
+    // if (record == null) return;
     final bufs = <String>[];
     for (LogRecord log in _buffer) {
-      bufs.add(
-          '${log.time}: [${log.level}] [${log.loggerName}] ${log.message} ${Platform.lineTerminator}');
+      bufs.add(format(log));
     }
-    unawaited(
-      File(_logfile).writeAsString(
-        bufs.join(),
-        mode: FileMode.writeOnlyAppend,
-      ),
-    );
-    bufs.clear();
-    _buffer.clear();
+
+    return unawaited(File(_logfile)
+        .writeAsString(bufs.join(), mode: FileMode.writeOnlyAppend)
+        .then((value) {
+      bufs.clear();
+      _buffer.clear();
+    }));
   }
 }

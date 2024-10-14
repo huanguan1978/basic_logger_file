@@ -35,7 +35,7 @@ Include short and useful examples for package users. Add longer examples to `/ex
   final basicLogger = BasicLogger('main');
 
   // attach file log, bufferSize default 10
-  basicLogger.attachLogger(FileOutputLogger(parentName: basicLogger.name));
+  basicLogger.attachLogger(FileOutputLogger(basicLogger.name));
 
   // output to all attach instance
   basicLogger.info('hello world');
@@ -44,7 +44,7 @@ Include short and useful examples for package users. Add longer examples to `/ex
   basicLogger.output();
 
   // output
-  // 2024-09-09 10:48:49.342267: [INFO] [main] hello world
+  // 2024-10-15 03:03:21.114721 [INFO] main: hello world
 ```
 
 
