@@ -5,7 +5,7 @@ final class FileOutputLogger extends OutputLogger {
   final List<LogRecord> _buffer = [];
   int _bufferSize = 10;
   String _logfile = '';
-  late final String _logName;
+  late final String __logName;
 
   FileOutputLogger(
     String parentName, {
@@ -18,13 +18,15 @@ final class FileOutputLogger extends OutputLogger {
     _logfile = path.join(
         dir, '${DateTime.now().toLocal().toString().substring(0, 10)}.log');
 
-    _logName = '$parentName.$selfname';
+    __logName = '$parentName.$selfname';
     Logger(parentName).onRecord.listen((LogRecord logRec) {
-      if (selfonly && logRec.loggerName != _logName) return;
-      _buffer.add(logRec);
-      if (_buffer.length >= _bufferSize) {
-        output();
+      if (selfonly) {
+        if (__logName == logRec.loggerName) _buffer.add(logRec);
+      } else {
+        if (parentName == logRec.loggerName) _buffer.add(logRec);
       }
+
+      if (_buffer.length >= _bufferSize) output();
     });
   }
 
@@ -33,7 +35,7 @@ final class FileOutputLogger extends OutputLogger {
       (logRec) => '${logRec.time} $logRec \n';
 
   @override
-  String get name => _logName;
+  String get name => __logName;
 
   /// output LogRecord form buffer
   @override

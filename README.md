@@ -63,7 +63,7 @@ Include short and useful examples for package users. Add longer examples to `/ex
         Directory(logPath).createSync(recursive: true);
     }
     basicLogger.attachLogger(FileOutputLogger(
-        parentName: basicLogger.name,
+        basicLogger.name,
         dir: './logs/',
     ));
 ```
@@ -73,7 +73,7 @@ Include short and useful examples for package users. Add longer examples to `/ex
 ```dart
   // buffering allows you to write files multiple times instead of writing files once
   basicLogger.attachLogger(FileOutputLogger(
-    parentName: basicLogger.name,
+    basicLogger.name,
     bufferSize: 100,
   ));
 
