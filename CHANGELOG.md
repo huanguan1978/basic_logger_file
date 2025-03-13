@@ -1,4 +1,4 @@
-## 0.2.0
+## 0.1.0
 
 - BREAKING: FileOutputLogger, uses positional arguments, passing `parentName` in the same way as its parent.
 - fix:  If `selfonly` is false, all logs with a `parentName` match are output.
