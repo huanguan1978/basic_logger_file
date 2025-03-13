@@ -1,6 +1,6 @@
 /// FileOutputLogger adds file logging to BasicLogger.
 
-library basic_logger_file;
+library;
 
 import 'dart:async';
 import 'dart:io';
