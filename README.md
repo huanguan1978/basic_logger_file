@@ -80,3 +80,13 @@ Include short and useful examples for package users. Add longer examples to `/ex
   // output and clear buffer
   basicLogger.output();
 ```
+
+- FileOutputLogger, specify output categorization
+
+```dart
+  // allow custom log extensions via `ext` parameter for log categorization.
+  basicLogger.attachLogger(FileOutputLogger(
+    basicLogger.name,
+    ext: '_sql.log',
+  ));
+```

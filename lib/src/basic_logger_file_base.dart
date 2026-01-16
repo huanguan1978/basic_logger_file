@@ -12,11 +12,12 @@ final class FileOutputLogger extends OutputLogger {
     String selfname = 'file',
     bool selfonly = false,
     String dir = '.',
+    String ext = '.log',
     int bufferSize = 100,
   }) : super(parentName, selfname: selfname, selfonly: selfonly) {
     _bufferSize = bufferSize;
     _logfile = path.join(
-        dir, '${DateTime.now().toLocal().toString().substring(0, 10)}.log');
+        dir, '${DateTime.now().toLocal().toString().substring(0, 10)}$ext');
 
     __logName = '$parentName.$selfname';
     Logger(parentName).onRecord.listen((LogRecord logRec) {

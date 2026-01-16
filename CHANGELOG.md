@@ -1,3 +1,7 @@
+## 0.1.1
+
+- feat: allow custom log extensions via `ext` parameter for log categorization.
+
 ## 0.1.0
 
 - BREAKING: FileOutputLogger, uses positional arguments, passing `parentName` in the same way as its parent.

@@ -1,6 +1,6 @@
 name: basic_logger_file
 description: FileOutputLogger adds file logging to BasicLogger for Android, iOS, Linux, macOS, and Windows.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/huanguan1978/basic_logger_file.git
 homepage: https://github.com/huanguan1978/basic_logger_file
 
