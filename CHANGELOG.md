@@ -1,3 +1,7 @@
+## 0.1.2
+
+- feat: implement daily log rotation.
+
 ## 0.1.1
 
 - feat: allow custom log extensions via `ext` parameter for log categorization.

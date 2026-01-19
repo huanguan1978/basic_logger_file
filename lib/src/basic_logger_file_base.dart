@@ -4,7 +4,8 @@ part of '../basic_logger_file.dart';
 final class FileOutputLogger extends OutputLogger {
   final List<LogRecord> _buffer = [];
   int _bufferSize = 10;
-  String _logfile = '';
+  String _dir = '';
+  String _ext = '';
   late final String __logName;
 
   FileOutputLogger(
@@ -16,8 +17,8 @@ final class FileOutputLogger extends OutputLogger {
     int bufferSize = 100,
   }) : super(parentName, selfname: selfname, selfonly: selfonly) {
     _bufferSize = bufferSize;
-    _logfile = path.join(
-        dir, '${DateTime.now().toLocal().toString().substring(0, 10)}$ext');
+    _dir = dir;
+    _ext = ext;
 
     __logName = '$parentName.$selfname';
     Logger(parentName).onRecord.listen((LogRecord logRec) {
@@ -46,8 +47,9 @@ final class FileOutputLogger extends OutputLogger {
     for (LogRecord log in _buffer) {
       bufs.add(format(log));
     }
-
-    return unawaited(File(_logfile)
+    final logfile = path.join(
+        _dir, '${DateTime.now().toLocal().toString().substring(0, 10)}$_ext');
+    return unawaited(File(logfile)
         .writeAsString(bufs.join(), mode: FileMode.writeOnlyAppend)
         .then((value) {
       bufs.clear();
