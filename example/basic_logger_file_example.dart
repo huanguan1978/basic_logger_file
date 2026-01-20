@@ -28,8 +28,8 @@ void main() {
   basicLogger.info('info a1'); // output to all attach instance
 
   // output buffer to all attach instance, not include detach instance
-  // basicLogger.output();
-  fileOutputLogger.output();
+  basicLogger.output();
+  // fileOutputLogger.output();
 
   // show all attach Logger instance name
   print(basicLogger.attachedNames);

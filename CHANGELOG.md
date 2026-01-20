@@ -1,3 +1,7 @@
+## 0.1.3
+
+- perf: use conditional constructor termination to share a unified data type while bypassing redundant base-class logic during inheritance.
+
 ## 0.1.2
 
 - feat: implement daily log rotation.

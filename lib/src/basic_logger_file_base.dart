@@ -15,7 +15,7 @@ final class FileOutputLogger extends OutputLogger {
     String dir = '.',
     String ext = '.log',
     int bufferSize = 100,
-  }) : super(parentName, selfname: selfname, selfonly: selfonly) {
+  }) : super(parentName, selfname: selfname, listening: false) {
     _bufferSize = bufferSize;
     _dir = dir;
     _ext = ext;
@@ -42,7 +42,7 @@ final class FileOutputLogger extends OutputLogger {
   /// output LogRecord form buffer
   @override
   void output([LogRecord? record]) {
-    // if (record == null) return;
+    if (_buffer.isEmpty) return;
     final bufs = <String>[];
     for (LogRecord log in _buffer) {
       bufs.add(format(log));
@@ -51,9 +51,9 @@ final class FileOutputLogger extends OutputLogger {
         _dir, '${DateTime.now().toLocal().toString().substring(0, 10)}$_ext');
     return unawaited(File(logfile)
         .writeAsString(bufs.join(), mode: FileMode.writeOnlyAppend)
-        .then((value) {
-      bufs.clear();
+        .whenComplete(() {
       _buffer.clear();
+      bufs.clear();
     }));
   }
 }
